@@ -1,0 +1,1 @@
+A webapp for submitting images of a plant via direct upload or a POST request to determine what disease the plant has. Based on the PlantVillage Dataset (https://www.kaggle.com/datasets/emmarex/plantdisease/data)
