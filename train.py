@@ -60,7 +60,7 @@ AUTOTUNE = tf.data.AUTOTUNE
 train_ds = (
     train_ds
     .map(lambda x, y: (normalization_layer(x), y))
-    .cache('/app/cache/train_cache.tf-data')
+    .cache()
     .shuffle(1000)
     .prefetch(buffer_size=AUTOTUNE)
 )
@@ -68,7 +68,7 @@ train_ds = (
 validation_ds = (
     validation_ds
     .map(lambda x, y: (normalization_layer(x), y))
-    .cache('/app/cache/validation_cache.tf-data')
+    .cache()
     .prefetch(buffer_size=AUTOTUNE)
 )
 
