@@ -1,0 +1,4 @@
+kagglehub
+fastapi
+uvicorn
+tensorflow
