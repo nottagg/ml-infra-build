@@ -3,7 +3,7 @@ set -e
 
 # Train dataset if existing model doesn't exist
 if [ ! -f /app/model.h5 ]; then
-    python /app/train.py
+    python python /app/train.py > /app/train_stdout.log 2>&1
 else
     echo "Model already exists. Skipping training."
 fi
