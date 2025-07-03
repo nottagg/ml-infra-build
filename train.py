@@ -59,22 +59,20 @@ print("Normalizing datasets...")
 AUTOTUNE = tf.data.AUTOTUNE
 train_ds = (
     train_ds
-    .map(lambda x, y: (normalization_layer(x), y))
-    .cache()
-    .shuffle(1000)
+    .shuffle(100)
     .prefetch(buffer_size=AUTOTUNE)
 )
 
 validation_ds = (
     validation_ds
     .map(lambda x, y: (normalization_layer(x), y))
-    .cache()
     .prefetch(buffer_size=AUTOTUNE)
 )
 
 print("Creating model...")
 
 model = tf.keras.Sequential([
+    tf.keras.layers.Rescaling(1./255, input_shape=(IMG_SIZE[0], IMG_SIZE[1], 3)),
     tf.keras.layers.Conv2D(32, 3, activation='relu'),
     tf.keras.layers.MaxPooling2D(),
     tf.keras.layers.Conv2D(64, 3, activation='relu'),

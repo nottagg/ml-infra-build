@@ -1,0 +1,59 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "password": {
+      "type": "securestring",
+      "metadata": {
+        "description": "Password for the Azure Container Registry"
+      }
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.ContainerInstance/containerGroups",
+      "apiVersion": "2021-09-01",
+      "name": "plant-disease-detector",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "osType": "Linux",
+        "containers": [
+          {
+            "name": "plant-disease-detector",
+            "properties": {
+              "image": "notag.azurecr.io/plant-disease-detector:latest",
+              "resources": {
+                "requests": {
+                  "cpu": 2,
+                  "memoryInGb": 16 
+                }
+              },
+              "ports": [
+                {
+                  "port": 80
+                }
+              ]
+            }
+          }
+        ],
+        "imageRegistryCredentials": [
+          {
+            "server": "notag.azurecr.io",
+            "username": "notag",
+            "password": "[parameters('password')]" 
+          }
+        ],
+        "ipAddress": {
+          "type": "Public",
+          "ports": [
+            {
+              "protocol": "tcp",
+              "port": 80
+            }
+          ],
+          "dnsNameLabel": "notag-pdd" 
+        }
+      }
+    }
+  ]
+}
