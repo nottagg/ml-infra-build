@@ -2,6 +2,7 @@ import kagglehub
 import os
 import shutil
 import tensorflow as tf
+from azure.storage.blob import BlobServiceClient
 
 TARGET_DIR = "dataset"
 

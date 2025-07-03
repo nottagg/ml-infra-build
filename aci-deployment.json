@@ -7,6 +7,18 @@
       "metadata": {
         "description": "Password for the Azure Container Registry"
       }
+    },
+    "logAnalyticsWorkspaceId": {
+      "type": "string",
+      "metadata": {
+        "description": "Log Analytics Workspace ID for monitoring"
+      }
+    },
+    "logAnalyticsWorkspaceKey": {
+        "type": "securestring",
+        "metadata": {
+          "description": "Log Analytics Workspace Key for monitoring"
+        }
     }
   },
   "resources": [
@@ -25,16 +37,16 @@
               "resources": {
                 "requests": {
                   "cpu": 2,
-                  "memoryInGb": 16 
+                  "memoryInGb": 16
                 }
               },
               "ports": [
                 {
-                  "port": 80
+                  "port": 8000
                 }
               ]
             }
-          }
+            }
         ],
         "imageRegistryCredentials": [
           {
@@ -48,10 +60,17 @@
           "ports": [
             {
               "protocol": "tcp",
-              "port": 80
+              "port": 8000
             }
           ],
           "dnsNameLabel": "notag-pdd" 
+        },
+        "diagnostics": {
+          "logAnalytics": {
+            "workspaceId": "[parameters('logAnalyticsWorkspaceId')]",
+            "workspaceKey": "[parameters('logAnalyticsWorkspaceKey')]",
+            "logType": "ContainerInsights"
+          }
         }
       }
     }
