@@ -2,3 +2,4 @@ kaggle.json
 /.vscode
 .venv
 *.parameters.json
+cmds.txt

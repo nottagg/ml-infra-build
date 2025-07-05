@@ -73,7 +73,8 @@ validation_ds = (
 print("Creating model...")
 
 model = tf.keras.Sequential([
-    tf.keras.layers.Rescaling(1./255, input_shape=(IMG_SIZE[0], IMG_SIZE[1], 3)),
+    tf.keras.layers.Input(shape=(IMG_SIZE[0], IMG_SIZE[1], 3)),
+    tf.keras.layers.Rescaling(1./255),
     tf.keras.layers.Conv2D(32, 3, activation='relu'),
     tf.keras.layers.MaxPooling2D(),
     tf.keras.layers.Conv2D(64, 3, activation='relu'),
@@ -86,6 +87,7 @@ model = tf.keras.Sequential([
     tf.keras.layers.Dense(num_classes, activation='softmax')
 ])
 
+
 model.compile(
     optimizer='adam',
     loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=False),
@@ -93,11 +95,16 @@ model.compile(
 )
 
 print("Training model...")
-history = model.fit(
-    train_ds,
-    validation_data=validation_ds,
-    epochs=10,
-)
+try: 
+    history = model.fit(
+        train_ds,
+        validation_data=validation_ds,
+        epochs=10,
+    )
+except Exception as e:
+    print(f"An error occurred during training: {e}")
+    exit(45)
+
 
 print("Saving model to /app/model.h5 ...")
 model.save("/app/model.h5")
