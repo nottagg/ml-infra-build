@@ -3,3 +3,4 @@ fastapi
 uvicorn
 tensorflow
 azure.storage.blob
+python-multipart

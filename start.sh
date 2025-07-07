@@ -1,13 +1,9 @@
 #!/bin/bash
 set -e
 
-# Train dataset if existing model doesn't exist
-if [ ! -f /app/model.h5 ]; then
-    python /app/train.py 2>&1 | tee /app/train_stdout.log
-else
-    echo "Model already exists. Skipping training."
-fi
+LOG_FILE="/app/runtime.log"
 
-# Start the FastAPI server
-echo "Starting FastAPI server..."
-uvicorn api:app --host 0.0.0.0 --port 8000
+echo "[start.sh] Starting FastAPI server at $(date)" | tee -a "$LOG_FILE"
+
+# Run uvicorn with logs both streamed and saved
+exec uvicorn api:app --host 0.0.0.0 --port 8000 2>&1 | tee -a "$LOG_FILE"
