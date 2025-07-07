@@ -11,8 +11,6 @@ WORKDIR /app
 
 # Copy files
 COPY requirements.txt .
-COPY kaggle.json /root/.kaggle/kaggle.json
-COPY train.py /app/train.py 
 COPY api.py /app/api.py
 COPY start.sh /app/start.sh
 
@@ -21,7 +19,6 @@ RUN pip install --upgrade pip \
  && pip install --no-cache-dir -r requirements.txt
 
 # Set permission for kaggle.json
-RUN chmod 600 /root/.kaggle/kaggle.json
 RUN chmod +x /app/start.sh
 
 # Run training script

@@ -25,19 +25,22 @@
     {
       "type": "Microsoft.ContainerInstance/containerGroups",
       "apiVersion": "2021-09-01",
-      "name": "plant-disease-detector",
+      "name": "notag-ml-api",
       "location": "[resourceGroup().location]",
+      "identity": {
+        "type": "SystemAssigned"
+      },
       "properties": {
         "osType": "Linux",
         "containers": [
           {
-            "name": "plant-disease-detector",
+            "name": "notag-ml-api",
             "properties": {
-              "image": "notag.azurecr.io/plant-disease-detector:latest",
+              "image": "notag.azurecr.io/notag-ml-api:latest",
               "resources": {
                 "requests": {
                   "cpu": 2,
-                  "memoryInGb": 16
+                  "memoryInGb": 4 
                 }
               },
               "ports": [

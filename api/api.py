@@ -1,6 +1,3 @@
-import numpy as np
-import tensorflow as tf
-from train import run_training_script
 from fastapi import File, UploadFile
 from pydantic import BaseModel
 from fastapi import BackgroundTasks, FastAPI
@@ -9,8 +6,6 @@ from fastapi import BackgroundTasks, FastAPI
 app = FastAPI()
 class TrainRequest(BaseModel):
     kaggle_url: str
-
-
 
 @app.get("/")
 def read_root():
