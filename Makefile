@@ -8,10 +8,10 @@ SERVE_IMAGE=notag.azurecr.io/notag-ml-serve:latest
 all: api training
 
 api:
-    docker build -f api/Dockerfile -t $(API_IMAGE) .
+	docker build -f api/Dockerfile -t $(API_IMAGE) .
 
 training:
-    docker build -f training/Dockerfile -t $(TRAIN_IMAGE) .
+	docker build -f training/Dockerfile -t $(TRAIN_IMAGE) .
 
 serve:
 	docker build -f serve/Dockerfile -t $(SERVE_IMAGE) .
