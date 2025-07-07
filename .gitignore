@@ -2,3 +2,4 @@ kaggle.json
 /.vscode
 .venv
 cmds.txt
+.DS_Store
